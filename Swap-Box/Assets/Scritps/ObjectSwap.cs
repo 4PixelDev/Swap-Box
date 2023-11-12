@@ -18,6 +18,7 @@ public class ObjectSwap : MonoBehaviour
         }
     }
 
+
     IEnumerator SwapObjects()
     {
         isSwapping = true;
@@ -27,6 +28,19 @@ public class ObjectSwap : MonoBehaviour
         Obj2_Box.position = tempPosition;
 
         yield return new WaitForSeconds(0.5f); // Adjust this time to your preference
+        isSwapping = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") || (other.gameObject.CompareTag("Box")))
+        {
+            isSwapping = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
         isSwapping = false;
     }
 }
