@@ -17,7 +17,6 @@ public class PlayerController2D : MonoBehaviour
     private float jumpBufferCounter;
 
     private Rigidbody2D playerRb;
-    private BoxCollider2D coll2D;
     float moveInput;
 
     bool facingRight = true;
@@ -28,13 +27,13 @@ public class PlayerController2D : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
 
-
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
-        coll2D = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -76,7 +75,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         // jump buffer
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -86,7 +85,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && playerRb.velocity.y > 0f)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) && playerRb.velocity.y > 0f)
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y * 0.5f);
             coyoteTimeCounter = 0f;
